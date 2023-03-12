@@ -58,13 +58,13 @@ function displayVideoGrid(videos) {
     imageElement.addEventListener("click", () => {
       const videoId = imageElement.getAttribute("data-id");
       $bp().destroy(true);
-      playVideo(videoId);
+      playVideo(videoId, true);
     });
 
     titleElement.addEventListener("click", () => {
       const videoId = titleElement.getAttribute("data-id");
       $bp().destroy(true);
-      playVideo(videoId);
+      playVideo(videoId, true);
     });
   }
 }
@@ -80,13 +80,15 @@ function padNumber(number) {
   return number.toString().padStart(2, "0");
 }
 
-function playVideo(videoId) {
+function playVideo(videoId, autoPlay = false) {
   $bp("myDiv", {
     id: "26456",
     width: "1024",
     height: "480",
     video: videoId,
-    autoplay: "true",
-    muted: "true",
+    autoplay: autoPlay,
+  });
+  $bp().on("adEnd", function () {
+    $bp().play();
   });
 }
